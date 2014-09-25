@@ -753,7 +753,7 @@ class JoomlArt_JmProducts_Block_List extends Mage_Catalog_Block_Product_Abstract
 		//echo 'here';
 		if($this->_config ['mode'] == "latest"){
 		
-		// echo 'its 1';
+		die('committed');
 		
 		$products = $resource->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
 
