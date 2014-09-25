@@ -1,0 +1,88 @@
+<div class="page-title"><div style="float:left"><h1><?php echo __('Special Order') ?></h1></div><div id="messages" style="  margin-left: 39px; float:left; color: red"></div></div>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="border-wrapper">
+<form action="<?php echo Mage::getUrl('s/index/post'); ?>" id="specialorderForm" method="post" AUTOCOMPLETE=OFF>
+
+
+
+<div class="grid">
+    <div class="hor-scroll">
+<table width="100%" border="0"  class="data-table">
+<thead>
+  <tr class="first-odd">
+   <th>Order#</th>
+    <th>Product Description</th>
+    <th>URL</th>
+    <th>Price</th>
+    <th>Date</th>
+    <th colspan="2">Action</th>
+  </tr>
+</thead>
+<tbody>
+<?php 
+
+$clr ='#fbfbfb';
+$v=$this->getElement();
+
+foreach($v as $key=>$for)
+{
+	if($clr=='#FFFFFF'){
+		$clr='#fbfbfb';
+	}
+	else{
+		$clr='#FFFFFF';
+	}
+
+	?>
+  <tr bgcolor="<?php echo $clr;?>" class="tr_<?php echo $key ?>">
+    <td><?php echo $for['s_id']; ?>&nbsp;</td>
+    <td><?php echo $for['content']; ?>&nbsp;</td>
+    <td><?php echo $for['url']; ?>&nbsp;</td>
+    <td><?php echo $for['price']; ?>&nbsp;</td>
+    <td><?php echo $for['date']; ?>&nbsp;</td>
+    <td align="right"><a href="<?php echo $this->getUrl('s/index/update',array('id'=>(int)$for['s_id']));?>">Edit</a>&nbsp;</td>
+    <td align="right"><a class="btn-remove btn-remove2" onclick="del_fun('<?php echo $this->getUrl('s/index/delete',array('id'=>(int)$for['s_id']))?>','tr_<?php echo $key ?>')"href="#">Del</a>&nbsp;</td>
+  </tr>
+</tbody>
+  <?php }?>
+</table>
+</div>
+<div class="buttons-set buttons-set2"><button type="button"name="update" onclick="window.location='<?php echo $this->getUrl('s/index/form');?>'" id="update" value="1"  class="button"><span><span><?php echo __('Create New Order') ?></span></span></button></div>
+</div>
+</form>
+<script type="text/javascript">
+	
+
+function del_fun(url,tr_id) {
+    var  agree = confirm("Are you sure you want to delete this order?");
+   if(agree)
+   {
+     jQuery.ajax({
+                type: "POST",
+                url: url,
+                success: function(data){//html = the server response html code
+                  if(data==1)
+                      {
+                        jQuery('tr.'+tr_id).hide();	
+                        jQuery("#messages").show().html('Order deleted succesfully.');
+                        
+                         jQuery("#messages").hide().fadeTo('slow',0.5);
+
+                      }
+                      else
+                      {
+                         jQuery("#messages").show().html('Record can not be delete.');    
+                      }
+                }
+            });
+   }
+else
+     {
+     return false;
+     }
+}
+
+//]]>
+</script>
+</div>
