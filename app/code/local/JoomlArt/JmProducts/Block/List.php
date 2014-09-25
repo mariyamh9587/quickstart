@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 /*------------------------------------------------------------------------
 
 # $JA#PRODUCT_NAME$ - Version $JA#VERSION$ - Licence Owner $JA#OWNER$
